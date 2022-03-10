@@ -7,7 +7,7 @@ file = open('config.json')
 data = json.load(file)
 
 chrome_options = Options()
-chrome_service = Service(data['service'])
+chrome_service = Service(data[data['platform']])
 chrome_options.add_experimental_option("useAutomationExtension", False)
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_argument("--kiosk");
