@@ -1,5 +1,5 @@
 {
-  "platform": "windows",
+  "platform": "linux",
   "linux": "./chromedriver",
   "windows": "windowschromedriver.exe",
   "url": "https://press-center.tatneft.ru/esmi/2a0fbdc0-b897-46bb-b181-c0b1aa620370"
