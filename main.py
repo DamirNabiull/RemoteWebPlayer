@@ -1,17 +1,13 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-import json
+from aiohttp import web
+from routes import routes
+from Driver import MyDriver
+from multiprocessing import Process
 
-file = open('config.json')
-data = json.load(file)
 
-chrome_options = Options()
-chrome_service = Service(data[data['platform']])
-chrome_options.add_experimental_option("useAutomationExtension", False)
-chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-chrome_options.add_argument("--kiosk");
+if __name__ == '__main__':
+    app = web.Application()
+    app.add_routes(routes)
+    web.run_app(app, host='0.0.0.0', port=8080)
 
-driver = webdriver.Chrome(service=chrome_service,
-                          options=chrome_options)
-driver.get(data['url'])
+    myDriver = MyDriver.getInstance()
+    driver = myDriver.GetDriver()
