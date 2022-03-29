@@ -3,8 +3,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import json
 import logging
-import sys
-import os
 
 
 logging.basicConfig(filename='app_player.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')

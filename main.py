@@ -1,7 +1,6 @@
 from aiohttp import web
 from routes import routes
 from Driver import MyDriver
-from multiprocessing import Process
 
 
 if __name__ == '__main__':
