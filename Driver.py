@@ -35,7 +35,8 @@ class MyDriver:
             else:
                 try:
                     path = self.data['projectPath']
-                    self.driver.get(rf'{path}\image.png')
+                    img_name = self.data['image']
+                    self.driver.get(rf'{path}\{img_name}')
                 except Exception as e:
                     page_state = self.driver.execute_script('return document.readyState;') == 'complete'
                     logging.warning(f'Start : {page_state}')
