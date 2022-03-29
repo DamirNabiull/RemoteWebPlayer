@@ -151,3 +151,16 @@ async def post_url(request):
     return web.json_response(status=status, data=data)
 
 
+@routes.post("/uploadVideo")
+async def post_url(request):
+    data = await request.json()
+    status = 500
+    try:
+        ReadConfig()
+        config['video'] = data['video']
+        WriteConfig()
+        status = 200
+    except Exception as e:
+        print(e)
+    data = {'status': status}
+    return web.json_response(status=status, data=data)
