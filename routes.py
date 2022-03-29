@@ -122,9 +122,12 @@ async def post_image(request):
     data = await request.json()
     status = 500
     try:
+        ReadConfig()
         img_data = data['image']
-        img_name = data['image_name']
-        with open(img_name, "wb") as fh:
+        img_format = data['image_name'].split('.')[-1]
+        config['image'] = f'image.{img_format}'
+        WriteConfig()
+        with open(config['image'], "wb") as fh:
             fh.write(base64.b64decode(img_data))
         status = 200
     except Exception as e:
