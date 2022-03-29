@@ -103,7 +103,8 @@ async def get_url(request):
 
         try:
             path = config['projectPath']
-            driver.get(rf'{path}\image.png')
+            img_name = config['image']
+            driver.get(rf'{path}\{img_name}')
             status = 200
         except Exception as e:
             page_state = driver.execute_script('return document.readyState;') == 'complete'
@@ -122,7 +123,8 @@ async def post_image(request):
     status = 500
     try:
         img_data = data['image']
-        with open("image.png", "wb") as fh:
+        img_name = data['image_name']
+        with open(img_name, "wb") as fh:
             fh.write(base64.b64decode(img_data))
         status = 200
     except Exception as e:
