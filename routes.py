@@ -84,7 +84,8 @@ async def get_url(request):
             logging.warning(f'setURL : {page_state}')
     except Exception as e:
         logging.error(f'/setURL : status - {e}')
-    return web.Response(status=status)
+    data = {'status': status}
+    return web.json_response(status=status, data=data)
 
 
 @routes.get('/setImage')
@@ -111,7 +112,8 @@ async def get_url(request):
             logging.warning(f'setURL : {page_state}')
     except Exception as e:
         logging.error(f'/setURL : status - {e}')
-    return web.Response(status=status)
+    data = {'status': status}
+    return web.json_response(status=status, data=data)
 
 
 @routes.post("/uploadImage")
@@ -128,5 +130,19 @@ async def post_image(request):
     data = {'status': status}
     return web.json_response(status=status, data=data)
 
+
+@routes.post("/uploadURL")
+async def post_url(request):
+    data = await request.json()
+    status = 500
+    try:
+        ReadConfig()
+        config['url'] = data['url']
+        WriteConfig()
+        status = 200
+    except Exception as e:
+        print(e)
+    data = {'status': status}
+    return web.json_response(status=status, data=data)
 
 
