@@ -24,6 +24,11 @@ def WriteConfig():
         json.dump(config, outfile)
 
 
+@routes.get('/ping')
+async def get_ping(request):
+    return web.Response(status=200)
+
+
 @routes.get('/start')
 async def get_start(request):
     status = 500
@@ -104,7 +109,7 @@ async def get_url(request):
         try:
             path = config['projectPath']
             img_name = config['image']
-            driver.get(rf'{path}\{img_name}')
+            driver.get(rf'file://{path}/{img_name}')
             status = 200
         except Exception as e:
             page_state = driver.execute_script('return document.readyState;') == 'complete'

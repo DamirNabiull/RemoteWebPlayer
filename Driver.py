@@ -20,7 +20,7 @@ class MyDriver:
             chrome_service = Service(self.data[self.data['platform']])
             chrome_options.add_experimental_option("useAutomationExtension", False)
             chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-            chrome_options.add_argument("--kiosk")
+            # chrome_options.add_argument("--kiosk")
 
             self.driver = webdriver.Chrome(service=chrome_service,
                                       options=chrome_options)
@@ -36,7 +36,7 @@ class MyDriver:
                 try:
                     path = self.data['projectPath']
                     img_name = self.data['image']
-                    self.driver.get(rf'{path}\{img_name}')
+                    self.driver.get(rf'file://{path}/{img_name}')
                 except Exception as e:
                     page_state = self.driver.execute_script('return document.readyState;') == 'complete'
                     logging.warning(f'Start : {page_state}')
