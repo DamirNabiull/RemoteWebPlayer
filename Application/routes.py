@@ -30,44 +30,6 @@ async def get_ping(request):
     return web.Response(status=200)
 
 
-@routes.get('/start')
-async def get_start(request):
-    status = 500
-    try:
-        driver.get(myDriver.GetLink())
-        status = 200
-    except Exception as e:
-        page_state = driver.execute_script('return document.readyState;') == 'complete'
-        if page_state:
-            status = 200
-    logging.warning(f'/start : status - {status}')
-    return web.Response(status=status)
-
-
-@routes.get('/addTab')
-async def get_add(request):
-    data = await request.json()
-    try:
-        driver.execute_script("window.open('');")
-        driver.switch_to.window(driver.window_handles[len(driver.window_handles)-1])
-        driver.get(data['link'])
-    except Exception as e:
-        driver.close()
-        logging.error(f'/addTab : status - No link')
-        return web.Response(status=500, text='No link')
-    return web.Response(status=200, text='OK')
-    # data = {'some': 'data'}
-    # return web.json_response(data)
-
-
-@routes.get('/closeTab')
-async def get_close(request):
-    if len(driver.window_handles) > 1:
-        driver.close()
-        driver.switch_to.window(driver.window_handles[len(driver.window_handles)-1])
-    return web.Response(status=200, text='OK')
-
-
 @routes.get('/setURL')
 async def get_url(request):
     status = 500
