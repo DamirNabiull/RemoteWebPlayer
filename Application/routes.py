@@ -37,11 +37,6 @@ async def get_url(request):
         read_config()
         config['show'] = 'url'
         write_config()
-        while len(driver.window_handles) > 1:
-            driver.close()
-            driver.switch_to.window(driver.window_handles[len(driver.window_handles) - 1])
-        driver.execute_script("window.open('');")
-        driver.switch_to.window(driver.window_handles[len(driver.window_handles) - 1])
 
         try:
             driver.get(config['url'])
@@ -64,11 +59,6 @@ async def get_image(request):
         read_config()
         config['show'] = 'image'
         write_config()
-        while len(driver.window_handles) > 1:
-            driver.close()
-            driver.switch_to.window(driver.window_handles[len(driver.window_handles) - 1])
-        driver.execute_script("window.open('');")
-        driver.switch_to.window(driver.window_handles[len(driver.window_handles) - 1])
 
         try:
             path = os.path.join(config['projectPath'], 'Assets', config['image'])
@@ -92,11 +82,6 @@ async def get_video(request):
         read_config()
         config['show'] = 'video'
         write_config()
-        while len(driver.window_handles) > 1:
-            driver.close()
-            driver.switch_to.window(driver.window_handles[len(driver.window_handles) - 1])
-        driver.execute_script("window.open('');")
-        driver.switch_to.window(driver.window_handles[len(driver.window_handles) - 1])
 
         try:
             path = os.path.join(config['projectPath'], 'Site', 'index.html')
