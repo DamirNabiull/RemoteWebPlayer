@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import json
 import logging
+import os
 
 
 logging.basicConfig(filename='app_player.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
@@ -20,7 +21,7 @@ class MyDriver:
             chrome_service = Service(self.data[self.data['platform']])
             chrome_options.add_experimental_option("useAutomationExtension", False)
             chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-            # chrome_options.add_argument("--kiosk")
+            chrome_options.add_argument("--kiosk")
 
             self.driver = webdriver.Chrome(service=chrome_service,
                                       options=chrome_options)
@@ -32,15 +33,13 @@ class MyDriver:
                 except Exception as e:
                     page_state = self.driver.execute_script('return document.readyState;') == 'complete'
                     logging.warning(f'Start : {page_state}')
-            else:
+            elif self.data['show'] == 'image':
                 try:
-                    path = self.data['projectPath']
-                    img_name = self.data['image']
-                    self.driver.get(rf'file://{path}/{img_name}')
+                    path = os.path.join(self.data['projectPath'], 'Assets', self.data['image'])
+                    self.driver.get(f'file://{path}')
                 except Exception as e:
                     page_state = self.driver.execute_script('return document.readyState;') == 'complete'
                     logging.warning(f'Start : {page_state}')
-
 
     @classmethod
     def getInstance(cls):
