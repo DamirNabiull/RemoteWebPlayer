@@ -58,7 +58,7 @@ async def get_url(request):
 
 
 @routes.get('/setImage')
-async def get_url(request):
+async def get_image(request):
     status = 500
     try:
         read_config()
@@ -81,6 +81,34 @@ async def get_url(request):
             logging.warning(f'setURL : {page_state}')
     except Exception as e:
         logging.error(f'/setURL : status - {e}')
+    data = {'status': status}
+    return web.json_response(status=status, data=data)
+
+
+@routes.get('/setVideo')
+async def get_video(request):
+    status = 500
+    try:
+        read_config()
+        config['show'] = 'video'
+        write_config()
+        while len(driver.window_handles) > 1:
+            driver.close()
+            driver.switch_to.window(driver.window_handles[len(driver.window_handles) - 1])
+        driver.execute_script("window.open('');")
+        driver.switch_to.window(driver.window_handles[len(driver.window_handles) - 1])
+
+        try:
+            path = os.path.join(config['projectPath'], 'Site', 'index.html')
+            driver.get(rf'file://{path}')
+            status = 200
+        except Exception as e:
+            page_state = driver.execute_script('return document.readyState;') == 'complete'
+            if page_state:
+                status = 200
+            logging.warning(f'setURL : {page_state}')
+    except Exception as e:
+        logging.error(f'/setVideo : status - {e}')
     data = {'status': status}
     return web.json_response(status=status, data=data)
 
