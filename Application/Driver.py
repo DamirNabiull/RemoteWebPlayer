@@ -40,6 +40,13 @@ class MyDriver:
                 except Exception as e:
                     page_state = self.driver.execute_script('return document.readyState;') == 'complete'
                     logging.warning(f'Start : {page_state}')
+            else:
+                try:
+                    path = os.path.join(self.data['projectPath'], 'Site', 'index.html')
+                    self.driver.get(f'file://{path}')
+                except Exception as e:
+                    page_state = self.driver.execute_script('return document.readyState;') == 'complete'
+                    logging.warning(f'Start : {page_state}')
 
     @classmethod
     def getInstance(cls):
