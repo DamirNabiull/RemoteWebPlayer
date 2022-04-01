@@ -68,9 +68,9 @@ async def get_image(request):
             page_state = driver.execute_script('return document.readyState;') == 'complete'
             if page_state:
                 status = 200
-            logging.warning(f'setURL : {page_state}')
+            logging.warning(f'setImage : {page_state}')
     except Exception as e:
-        logging.error(f'/setURL : status - {e}')
+        logging.error(f'/setImage : status - {e}')
     data = {'status': status}
     return web.json_response(status=status, data=data)
 
@@ -91,7 +91,7 @@ async def get_video(request):
             page_state = driver.execute_script('return document.readyState;') == 'complete'
             if page_state:
                 status = 200
-            logging.warning(f'setURL : {page_state}')
+            logging.warning(f'setVideo : {page_state}')
     except Exception as e:
         logging.error(f'/setVideo : status - {e}')
     data = {'status': status}
