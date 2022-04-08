@@ -27,7 +27,15 @@ def write_config():
 
 @routes.get('/ping')
 async def get_ping(request):
-    return web.Response(status=200)
+    data = {'status': 200}
+    return web.json_response(status=200, data=data)
+
+
+@routes.get('/suspend')
+async def get_suspend(request):
+    os.system('systemctl suspend')
+    data = {'status': 200}
+    return web.json_response(status=200, data=data)
 
 
 @routes.get('/setURL')
