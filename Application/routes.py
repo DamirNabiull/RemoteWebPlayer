@@ -115,8 +115,9 @@ async def post_image(request):
         img_data = data['image']
         img_format = data['image_name'].split('.')[-1]
         config['image'] = f'image.{img_format}'
+        path = os.path.join(config['projectPath'], 'Assets', config['image'])
         write_config()
-        with open(config['image'], "wb") as fh:
+        with open(path, "wb") as fh:
             fh.write(base64.b64decode(img_data))
         status = 200
     except Exception as e:
