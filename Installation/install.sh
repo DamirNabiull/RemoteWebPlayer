@@ -1,8 +1,6 @@
 #!/bin/sh
 sudo apt-get update -y
 
-sudo apt-get install python3-pip
-
 sudo apt-get install chromium-driver -y
 
 sudo apt-get install vlc -y
