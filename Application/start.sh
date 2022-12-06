@@ -1,2 +1,2 @@
-cd ~/Documents/RemoteWebPlayer
+cd ~/Documents/RemoteWebPlayer/Application
 python3 main.py
